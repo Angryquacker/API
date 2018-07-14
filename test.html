@@ -13,6 +13,23 @@
             });
         }
             
+        function deleteData() {
+            let name = document.getElementById('dNa').value;
+            $.ajax({
+                url: `http://localhost:8081?name=${name}`,
+                type: "DELETE"
+            });
+        }
+            
+        function updateData() {
+            let oldName = document.getElementById('oNa').value;
+            let newName = document.getElementById('nNa').value;
+            $.ajax({
+                url: `http://localhost:8081?name=${newName}&oName=${oldName}`,
+                type: "PUT"
+            });
+        }
+            
         function newData() {
             let data = document.getElementById('na').value;
             $.post(`http://localhost:8081?name=${data}`);
@@ -22,9 +39,23 @@
     <body>
         <div id="name"></div>
         <button onclick="getData()">Get Data</button>
+        <p>New Data</p>
         <form onsubmit="newData()">
             <input type="text" placeholder="username" id="na">
             <button type="submit">Submit</button>
+        </form>
+        
+        <p>Delete Name</p>
+        <form onsubmit="deleteData()">
+            <input type="text" placeholder="Delete Name" id="dNa">
+            <button type="submit">Delete Name</button>
+        </form>
+        
+        <p>Update Name</p>
+        <form onsubmit="updateData()">
+            <input type="text" placeholder="Old Name" id="oNa">
+            <input type="text" placeholder="New Name" id="nNa">
+            <button type="submit">Update Name</button>
         </form>
     </body>
 </html>

@@ -43,6 +43,33 @@ app.post('/', (req, res, next) => {
     db.close();
 });
 
+app.delete('/', (req, res, next) => {
+    let db = new sqlite.Database('test.db');
+    db.run(`DELETE FROM users WHERE username=?`, [req.query.name], (err) => {
+        if (err) {
+            console.log(err.message);
+            res.status(501).send();
+        } else {
+            res.status(401).send();
+        }
+    });
+    db.close();
+});
+
+app.put('/', (req, res, next) => {
+    let db = new sqlite.Database('test.db');
+    let sql = `UPDATE users SET username = ? WHERE username = ?`;
+    db.run(sql, [req.query.name, req.query.oName], (err) => {
+        if (err) {
+            console.log(err.message);
+            res.status(501).send();
+        } else {
+            res.status(200).send();
+        }
+    });
+    db.close();
+});
+
 app.listen(PORT, () => {
     console.log('Listening on PORT: ' + PORT);
 });
