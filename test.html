@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Test</title>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script>
+        function getData() {
+            $('#name').html('');
+            $.getJSON('http://localhost:8081', function(data) {
+                for (let i = 0;i < data.users.length;i++) {
+                    $("#name").append("<p>" + JSON.stringify(data.users[i]) + "</p>");
+                } 
+            });
+        }
+            
+        function newData() {
+            let data = document.getElementById('na').value;
+            $.post(`http://localhost:8081?name=${data}`);
+        }
+        </script>
+    </head>
+    <body>
+        <div id="name"></div>
+        <button onclick="getData()">Get Data</button>
+        <form onsubmit="newData()">
+            <input type="text" placeholder="username" id="na">
+            <button type="submit">Submit</button>
+        </form>
+    </body>
+</html>
